@@ -12,8 +12,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
+
 # Load the dataset
-df = pd.read_excel('power plant.xlsx')
+df = pd.read_excel('Power Plant.xlsx')
 
 # Split the dataset into features (X) and target variable (y)
 X = df[['AT', 'V', 'AP', 'RH']]

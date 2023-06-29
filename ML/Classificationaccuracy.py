@@ -1,34 +1,32 @@
-# 3.) Find the classification accuracy of K-means algorithm with MNIST dataset.
-
+from keras.datasets import mnist
 from sklearn.cluster import KMeans
-from sklearn.datasets import fetch_openml
 from sklearn.metrics import accuracy_score
+import numpy as np
 
 # Load the MNIST dataset
-mnist = fetch_openml('mnist_784')
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
 
-# Preprocess the data by scaling it to [0, 1] range
-X = mnist.data / 255.0
-y = mnist.target
-
-# Number of clusters (equal to the number of classes in MNIST)
-num_clusters = len(set(y))
+# Reshape the training and testing data
+X_train = x_train.reshape(len(x_train), -1)
+X_test = x_test.reshape(len(x_test), -1)
 
 # Apply K-means clustering
-kmeans = KMeans(n_clusters=num_clusters, random_state=42)
-kmeans.fit(X)
+k = len(np.unique(y_train))  # Number of unique classes
+kmeans = KMeans(n_clusters=k, random_state=42)
+kmeans.fit(X_train)
 
-# Assign labels to clusters based on majority vote
-labels = []
-for i in range(num_clusters):
-    cluster_indices = (kmeans.labels_ == i)
-    cluster_labels = y[cluster_indices]
-    majority_label = max(set(cluster_labels), key=cluster_labels.tolist().count)
-    labels.append(majority_label)
+# Assign cluster labels to test samples
+y_pred = kmeans.predict(X_test)
 
-# Predict the cluster labels for the original data
-predicted_labels = [labels[label] for label in kmeans.labels_]
+# Convert cluster labels to integer values
+cluster_labels = kmeans.labels_
+cluster_centers = kmeans.cluster_centers_
+mapped_labels = np.zeros_like(y_pred)
+for i in range(k):
+    mask = (y_pred == i)
+    mapped_labels[mask] = np.argmax(np.bincount(y_train[cluster_labels == i]))
 
-# Calculate the classification accuracy
-accuracy = accuracy_score(y, predicted_labels)
+# Evaluate the classification accuracy
+accuracy = accuracy_score(y_test, mapped_labels)
+
 print("Classification Accuracy:", accuracy)
