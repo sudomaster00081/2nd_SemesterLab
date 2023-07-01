@@ -1,5 +1,7 @@
 # 3.) Find the classification accuracy of K-means algorithm with MNIST dataset.
 
+# pip install tensorflow
+
 from sklearn.cluster import KMeans
 from sklearn.datasets import fetch_openml
 from sklearn.metrics import accuracy_score
