@@ -14,7 +14,7 @@ filename = 'Dataset.csv'
 urllib.request.urlretrieve(url, filename)
 
 # Load the dataset
-data = pd.read_csv('breast_cancer.csv', header=None)
+data = pd.read_csv(filename, header=None)
 
 # Prepare the dataset
 X = data.iloc[:, 2:]  # Features (columns 2 onwards)
