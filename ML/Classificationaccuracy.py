@@ -10,6 +10,7 @@ from sklearn.metrics import accuracy_score
 
 # Load the MNIST dataset
 mnist = fetch_openml('mnist_784')
+print (mnist)
 X = mnist.data
 y = mnist.target
 
