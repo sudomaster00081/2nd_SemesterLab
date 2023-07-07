@@ -3,7 +3,7 @@ import numpy as np
 
 # Set the number of rows and features
 num_rows = 1000  # Set the desired number of rows
-num_features = 10008  # Set the desired number of features
+num_features = 1008  # Set the desired number of features
 
 # Generate random integer data
 data = np.random.randint(low=0, high=100, size=(num_rows, num_features))
