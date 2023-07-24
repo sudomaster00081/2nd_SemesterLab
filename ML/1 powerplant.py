@@ -14,7 +14,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 
 # Load the dataset
-df = pd.read_excel('Power Plant.xlsx')
+df = pd.read_excel('ML\Data\Power Plant.xlsx')
 
 # Split the dataset into features (X) and target variable (y)
 X = df[['AT', 'V', 'AP', 'RH']]

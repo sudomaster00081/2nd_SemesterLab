@@ -16,7 +16,7 @@ from sklearn.svm import SVC
 from sklearn.metrics import precision_score, recall_score, f1_score
 
 # Load the dataset
-data = pd.read_csv('1000_features.csv')
+data = pd.read_csv(r"ML\Data\1000_features.csv")
 
 # Split the dataset into features (X) and target variable (y)
 X = data.drop(data.columns[0], axis=1)  # Drop the first column as features

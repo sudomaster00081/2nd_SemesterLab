@@ -10,13 +10,13 @@ from sklearn.metrics import accuracy_score
 from sklearn.ensemble import VotingClassifier
 
 # Download the dataset from UCI repository
-url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
-filename = 'iris.csv'
-urllib.request.urlretrieve(url, filename)
+#url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+#filename = 'iris.csv'
+#urllib.request.urlretrieve(url, filename)
 
 # Load the dataset
-data = pd.read_csv('iris.csv', header=None)
-
+data = pd.read_csv('ML\Data\iris.csv', header=None)
+ 
 # Prepare the dataset
 X = data.iloc[:, :-1]  # Features (all columns except the last one)
 y = data.iloc[:, -1]   # Target variable (last column)

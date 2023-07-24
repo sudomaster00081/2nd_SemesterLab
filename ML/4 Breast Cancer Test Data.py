@@ -11,7 +11,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix, accuracy_score
 
 # Load the dataset
-data = pd.read_csv('Breast Cancer.csv')
+data = pd.read_csv('ML\Data\Breast Cancer.csv')
 
 # Split the data into features and target variable
 X = data.drop('Class', axis=1)

@@ -9,9 +9,9 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import precision_score, recall_score, f1_score
 
 # Download the dataset from UCI repository
-url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data'
-filename = 'Dataset.csv'
-urllib.request.urlretrieve(url, filename)
+#url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data'
+filename = 'ML\Data\Dataset.csv'
+#urllib.request.urlretrieve(url, filename)
 
 # Load the dataset
 data = pd.read_csv(filename, header=None)
