@@ -20,7 +20,7 @@ def process_text(text):
 
 # Receive input text from the user
 # text = input("Enter a sentence: ")
-file = open("Text as a bag of words.txt", 'r')
+file = open("NLP\Text as a bag of words.txt", 'r')
 
 # print(file)
 text = file.read()

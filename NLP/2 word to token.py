@@ -6,7 +6,7 @@ import nltk
 #nltk.download('punkt')
 
 
-file = open("Text as a bag of words.txt", 'r')
+file = open("NLP\Text as a bag of words.txt", 'r')
 
 # print(file)
 text = file.read()

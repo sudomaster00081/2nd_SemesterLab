@@ -22,7 +22,7 @@ def standardize(text):
    
     return textwithoutnum
 
-file = open('Text as a bag of words.txt')
+file = open('NLP\Text as a bag of words.txt')
 text = file.read()
 
 print(f"\nText = \n{text}\n")

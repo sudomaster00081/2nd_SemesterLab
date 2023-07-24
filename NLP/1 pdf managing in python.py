@@ -6,7 +6,7 @@
 from PyPDF2 import PdfReader
 from PyPDF2 import PdfWriter
 
-pdffile = PdfReader("Sample.pdf")
+pdffile = PdfReader("NLP\Sample.pdf")
 pagecount = len(pdffile.pages)
 
 print(f"\nPdf Page Length - {pagecount}")
@@ -17,5 +17,5 @@ print("\nText Contents Of Page 1 >>\n")
 
 print(text1)
 
-print('\nSaving As "Result.pdf" ')
-pdfresult = page1
+# print('\nSaving As "Result.pdf" ')
+# pdfresult = page1

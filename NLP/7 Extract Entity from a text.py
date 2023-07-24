@@ -7,7 +7,7 @@ import en_core_web_sm
 # >>>>python -m spacy download en_core_web_trf
 # >>>>python -m spacy download en_core_web_sm
 
-file = open ('Text as a bag of words.txt')
+file = open ('NLP\Text as a bag of words.txt')
 text = file.read()
 #text = "Hello World"
 NER = spacy.load("en_core_web_sm")

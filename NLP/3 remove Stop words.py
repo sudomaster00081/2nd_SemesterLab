@@ -4,9 +4,9 @@ import nltk
 from nltk.corpus import stopwords
 # >>>>pip install nltk
 #nltk.download('punkt')
-#nltk.download('stopwords')
+nltk.download('stopwords')
 
-file = open('Text as a bag of words.txt')
+file = open('NLP\Text as a bag of words.txt')
 
 text = file.read()
 
