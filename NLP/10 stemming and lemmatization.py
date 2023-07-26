@@ -1,4 +1,4 @@
-# Perform steaming and levetization on Text
+# Perform stemming and lemmatization on Text
 
 # >>>>> pip install textblob
 # >>>>> pip install nltk
