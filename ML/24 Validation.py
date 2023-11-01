@@ -1,49 +1,47 @@
-# 4. Download any numerical dataset from UCI repository and do the classification
-# process with SVM as said below
-# a. 10 fold validation
-# b. with dataset 80:20, 70:30 and 60:40
-# c. prepare a comparison table of F1 score for a and b
+import numpy as np
+from sklearn.cluster import KMeans
+from sklearn.datasets import make_blobs
+from sklearn.metrics import pairwise_distances_argmin_min
 
+# Step 1: Generate a synthetic dataset
+n_samples = 300
+n_features = 2
+n_clusters = 3
 
-import pandas as pd
-from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.svm import SVC
-from sklearn.metrics import f1_score
-from sklearn.datasets import load_wine
+X, _ = make_blobs(n_samples=n_samples, n_features=n_features, centers=n_clusters, random_state=42)
 
-# Load the Wine dataset from scikit-learn
-data = load_wine()
-X, y = data.data, data.target
+# Step 2: K-means with Euclidean distance
+kmeans_euclidean = KMeans(n_clusters=n_clusters, init='k-means++', random_state=42)
+kmeans_euclidean.fit(X)
+labels_euclidean = kmeans_euclidean.labels_
+centers_euclidean = kmeans_euclidean.cluster_centers_
 
-# Function to perform SVM with 10-fold cross-validation
-def svm_with_cross_val(X, y):
-    svm = SVC(kernel='linear')
-    f1_scores = cross_val_score(svm, X, y, cv=10, scoring='f1_weighted')
-    return f1_scores.mean()
+# Step 3: K-means with Manhattan distance
+def custom_manhattan(X, centers):
+    return np.linalg.norm(X[:, np.newaxis] - centers, ord=1, axis=2)
 
-# Function to perform SVM with train-test split
-def svm_with_train_test_split(X, y, test_size):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=42)
-    svm = SVC(kernel='linear')
-    svm.fit(X_train, y_train)
-    y_pred = svm.predict(X_test)
-    return f1_score(y_test, y_pred, average='weighted')
+labels_manhattan = pairwise_distances_argmin_min(X, centers_euclidean, metric=custom_manhattan)
+labels_manhattan = labels_manhattan[0]
 
-# Perform experiments with different train-test splits
-split_ratios = [0.8, 0.7, 0.6]
-f1_scores_split = []
-for ratio in split_ratios:
-    f1_score_split = svm_with_train_test_split(X, y, test_size=1 - ratio)
-    f1_scores_split.append(f1_score_split)
+# Step 4: Compare the results
+wcss_euclidean = sum(np.min(np.linalg.norm(X - centers_euclidean[labels_euclidean], ord=2, axis=1)**2))
+wcss_manhattan = sum(np.min(np.linalg.norm(X - centers_euclidean[labels_manhattan], ord=1, axis=1)))
 
-# Perform SVM with 10-fold cross-validation
-f1_score_cross_val = svm_with_cross_val(X, y)
+print("WCSS (Euclidean Distance):", wcss_euclidean)
+print("WCSS (Manhattan Distance):", wcss_manhattan)
 
-# Prepare a comparison table
-results = {
-    "Method": ["10-fold Cross-Validation"] + [f"{int(ratio*100)}:{int((1-ratio)*100)}" for ratio in split_ratios],
-    "F1 Score": [f1_score_cross_val] + f1_scores_split
-}
+# Visualization (you can use a plotting library for this)
+import matplotlib.pyplot as plt
 
-comparison_table = pd.DataFrame(results)
-print(comparison_table)
+plt.figure(figsize=(12, 6))
+plt.subplot(121)
+plt.scatter(X[:, 0], X[:, 1], c=labels_euclidean, cmap='viridis')
+plt.scatter(centers_euclidean[:, 0], centers_euclidean[:, 1], c='red', marker='x')
+plt.title("K-means (Euclidean Distance)")
+
+plt.subplot(122)
+plt.scatter(X[:, 0], X[:, 1], c=labels_manhattan, cmap='viridis')
+plt.scatter(centers_euclidean[:, 0], centers_euclidean[:, 1], c='red', marker='x')
+plt.title("K-means (Manhattan Distance)")
+
+plt.show()
